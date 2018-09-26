@@ -101,7 +101,7 @@ def main():
             l('IN: %s' % line)
 
             parts = line.split(' ')
-            
+
             if parts[0] == 'uci':
                 send('id name Feeks')
                 send('id author Folkert van Heusden <mail@vanheusden.com>')
@@ -174,8 +174,12 @@ def main():
                         board.push_uci(parts[nr])
 
                     elif parts[nr] ==  'fen':
-                        board = Board(' '.join(parts[nr + 1:]))
-                        break
+                        if "moves" in parts:
+                            board = Board(" ".join(parts[nr + 1:nr + 7]))
+                            nr += 6
+                        else:
+                            board = Board(" ".join(parts[nr + 1:]))
+                            break
 
                     elif parts[nr] == 'startpos':
                         board = Board()
